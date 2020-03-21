@@ -6,10 +6,9 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/spf13/cast"
-
 	"github.com/gopub/conv"
-	"github.com/gopub/gox"
+	"github.com/gopub/types"
+	"github.com/spf13/cast"
 )
 
 type Manager interface {
@@ -169,14 +168,14 @@ func MustStringSlice(key string) []string {
 	return v
 }
 
-func Map(key string, defaultValue gox.M) gox.M {
+func Map(key string, defaultValue types.M) types.M {
 	if !DefaultManager.Has(key) {
 		return defaultValue
 	}
 	return cast.ToStringMap(DefaultManager.Get(key))
 }
 
-func MustMap(key string) gox.M {
+func MustMap(key string) types.M {
 	if !DefaultManager.Has(key) {
 		log.Panicf("%s is not defined", key)
 	}
