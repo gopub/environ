@@ -17,22 +17,22 @@ type Manager interface {
 	Set(key string, value interface{})
 }
 
-var DefaultManager Manager = NewViperManager()
+var defaultManager Manager = NewViperManager()
 
 func Has(key string) bool {
-	return DefaultManager.Has(key)
+	return defaultManager.Has(key)
 }
 
 func Get(key string) interface{} {
-	return DefaultManager.Get(key)
+	return defaultManager.Get(key)
 }
 
 func Set(key string, value interface{}) {
-	DefaultManager.Set(key, value)
+	defaultManager.Set(key, value)
 }
 
 func String(key string, defaultValue string) string {
-	s, err := conv.ToString(DefaultManager.Get(key))
+	s, err := conv.ToString(defaultManager.Get(key))
 	if err != nil {
 		return defaultValue
 	}
@@ -40,7 +40,7 @@ func String(key string, defaultValue string) string {
 }
 
 func MustString(key string) string {
-	v, _ := conv.ToString(DefaultManager.Get(key))
+	v, _ := conv.ToString(defaultManager.Get(key))
 	if v == "" {
 		log.Panicf("%s is not defined", key)
 	}
@@ -48,7 +48,7 @@ func MustString(key string) string {
 }
 
 func Int(key string, defaultValue int) int {
-	v, err := conv.ToInt(DefaultManager.Get(key))
+	v, err := conv.ToInt(defaultManager.Get(key))
 	if err != nil {
 		return defaultValue
 	}
@@ -56,7 +56,7 @@ func Int(key string, defaultValue int) int {
 }
 
 func MustInt(key string) int {
-	v, err := conv.ToInt(DefaultManager.Get(key))
+	v, err := conv.ToInt(defaultManager.Get(key))
 	if err != nil {
 		log.Panicf("%s is not defined", key)
 	}
@@ -64,7 +64,7 @@ func MustInt(key string) int {
 }
 
 func Int64(key string, defaultValue int64) int64 {
-	v, err := conv.ToInt64(DefaultManager.Get(key))
+	v, err := conv.ToInt64(defaultManager.Get(key))
 	if err != nil {
 		return defaultValue
 	}
@@ -72,7 +72,7 @@ func Int64(key string, defaultValue int64) int64 {
 }
 
 func MustInt64(key string) int64 {
-	v, err := conv.ToInt64(DefaultManager.Get(key))
+	v, err := conv.ToInt64(defaultManager.Get(key))
 	if err != nil {
 		log.Panicf("%s is not defined", key)
 	}
@@ -80,7 +80,7 @@ func MustInt64(key string) int64 {
 }
 
 func Float64(key string, defaultValue float64) float64 {
-	v, err := conv.ToFloat64(DefaultManager.Get(key))
+	v, err := conv.ToFloat64(defaultManager.Get(key))
 	if err != nil {
 		return defaultValue
 	}
@@ -88,7 +88,7 @@ func Float64(key string, defaultValue float64) float64 {
 }
 
 func MustFloat64(key string) float64 {
-	v, err := conv.ToFloat64(DefaultManager.Get(key))
+	v, err := conv.ToFloat64(defaultManager.Get(key))
 	if err != nil {
 		log.Panicf("%s is not defined", key)
 	}
@@ -96,7 +96,7 @@ func MustFloat64(key string) float64 {
 }
 
 func Duration(key string, defaultValue time.Duration) time.Duration {
-	v, err := conv.ToDuration(DefaultManager.Get(key))
+	v, err := conv.ToDuration(defaultManager.Get(key))
 	if err != nil {
 		return defaultValue
 	}
@@ -104,7 +104,7 @@ func Duration(key string, defaultValue time.Duration) time.Duration {
 }
 
 func MustDuration(key string) time.Duration {
-	v, err := conv.ToDuration(DefaultManager.Get(key))
+	v, err := conv.ToDuration(defaultManager.Get(key))
 	if err != nil {
 		log.Panicf("%s is not defined", key)
 	}
@@ -112,10 +112,10 @@ func MustDuration(key string) time.Duration {
 }
 
 func Bool(key string, defaultValue bool) bool {
-	if !DefaultManager.Has(key) {
+	if !defaultManager.Has(key) {
 		return defaultValue
 	}
-	v, err := conv.ToBool(DefaultManager.Get(key))
+	v, err := conv.ToBool(defaultManager.Get(key))
 	if err != nil {
 
 	}
@@ -123,7 +123,7 @@ func Bool(key string, defaultValue bool) bool {
 }
 
 func MustBool(key string) bool {
-	v, err := conv.ToBool(DefaultManager.Get(key))
+	v, err := conv.ToBool(defaultManager.Get(key))
 	if err != nil {
 		log.Panicf("%s is not defined", key)
 	}
@@ -131,15 +131,15 @@ func MustBool(key string) bool {
 }
 
 func IntSlice(key string, defaultValue []int) []int {
-	if !DefaultManager.Has(key) {
+	if !defaultManager.Has(key) {
 		return defaultValue
 	}
-	v, _ := conv.ToIntSlice(DefaultManager.Get(key))
+	v, _ := conv.ToIntSlice(defaultManager.Get(key))
 	return v
 }
 
 func MustIntSlice(key string) []int {
-	v, err := conv.ToIntSlice(DefaultManager.Get(key))
+	v, err := conv.ToIntSlice(defaultManager.Get(key))
 	if err != nil {
 		log.Panicf("%s is not defined", key)
 	}
@@ -150,15 +150,15 @@ func MustIntSlice(key string) []int {
 }
 
 func StringSlice(key string, defaultValue []string) []string {
-	if !DefaultManager.Has(key) {
+	if !defaultManager.Has(key) {
 		return defaultValue
 	}
-	v, _ := conv.ToStringSlice(DefaultManager.Get(key))
+	v, _ := conv.ToStringSlice(defaultManager.Get(key))
 	return v
 }
 
 func MustStringSlice(key string) []string {
-	v, err := conv.ToStringSlice(DefaultManager.Get(key))
+	v, err := conv.ToStringSlice(defaultManager.Get(key))
 	if err != nil {
 		log.Panicf("%s is not defined", key)
 	}
@@ -169,17 +169,17 @@ func MustStringSlice(key string) []string {
 }
 
 func Map(key string, defaultValue types.M) types.M {
-	if !DefaultManager.Has(key) {
+	if !defaultManager.Has(key) {
 		return defaultValue
 	}
-	return cast.ToStringMap(DefaultManager.Get(key))
+	return cast.ToStringMap(defaultManager.Get(key))
 }
 
 func MustMap(key string) types.M {
-	if !DefaultManager.Has(key) {
+	if !defaultManager.Has(key) {
 		log.Panicf("%s is not defined", key)
 	}
-	v := cast.ToStringMap(DefaultManager.Get(key))
+	v := cast.ToStringMap(defaultManager.Get(key))
 	if len(v) == 0 {
 		log.Panicf("%s is empty", key)
 	}
@@ -187,10 +187,10 @@ func MustMap(key string) types.M {
 }
 
 func SizeInBytes(key string, defaultValue int) int {
-	if !DefaultManager.Has(key) {
+	if !defaultManager.Has(key) {
 		return defaultValue
 	}
-	s, err := conv.ToString(DefaultManager.Get(key))
+	s, err := conv.ToString(defaultManager.Get(key))
 	if err != nil {
 		return defaultValue
 	}
@@ -198,10 +198,10 @@ func SizeInBytes(key string, defaultValue int) int {
 }
 
 func MustSizeInBytes(key string) int {
-	if !DefaultManager.Has(key) {
+	if !defaultManager.Has(key) {
 		log.Panicf("%s is not defined", key)
 	}
-	v := DefaultManager.Get(key)
+	v := defaultManager.Get(key)
 	s, err := conv.ToString(v)
 	if err != nil {
 		log.Panicf("Cast to string %v: %v", v, err)
