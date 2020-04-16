@@ -1,10 +1,11 @@
 package environ
 
 import (
-	"github.com/gopub/conv"
-	"github.com/gopub/types"
 	"log"
 	"os"
+
+	"github.com/gopub/conv"
+	"github.com/gopub/types"
 )
 
 func IntArg(index int) (int, error) {
