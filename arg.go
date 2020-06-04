@@ -1,16 +1,18 @@
 package environ
 
 import (
+	"errors"
 	"log"
 	"os"
 
 	"github.com/gopub/conv"
-	"github.com/gopub/types"
 )
+
+var Nil = errors.New("not exists")
 
 func IntArg(index int) (int, error) {
 	if index >= len(os.Args) {
-		return 0, types.ErrNotExist
+		return 0, Nil
 	}
 	return conv.ToInt(os.Args[index])
 }
@@ -25,7 +27,7 @@ func MustIntArg(index int) int {
 
 func Int64Arg(index int) (int64, error) {
 	if index >= len(os.Args) {
-		return 0, types.ErrNotExist
+		return 0, Nil
 	}
 	return conv.ToInt64(os.Args[index])
 }
@@ -40,7 +42,7 @@ func MustInt64Arg(index int) int64 {
 
 func StringArg(index int) (string, error) {
 	if index >= len(os.Args) {
-		return "", types.ErrNotExist
+		return "", Nil
 	}
 	return os.Args[index], nil
 }
