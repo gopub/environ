@@ -2,6 +2,7 @@ package environ
 
 import (
 	"github.com/spf13/viper"
+	"reflect"
 	"regexp"
 	"strings"
 )
@@ -25,8 +26,11 @@ func (m *ViperManager) Has(key string) bool {
 
 func (m *ViperManager) Get(key string) interface{} {
 	if v := viper.Get(key); v != nil {
-		return v
+		if !reflect.ValueOf(v).IsZero() {
+			return v
+		}
 	}
+
 	if m.dotKeyPattern.MatchString(key) {
 		key = strings.Replace(key, ".", "_", -1)
 		return viper.Get(key)
