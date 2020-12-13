@@ -15,6 +15,7 @@ type Manager interface {
 	Has(key string) bool
 	Get(key string) interface{}
 	Set(key string, value interface{})
+	LoadConfigFile(filename string) error
 }
 
 var defaultManager Manager = NewViperManager()
@@ -29,6 +30,16 @@ func Get(key string) interface{} {
 
 func Set(key string, value interface{}) {
 	defaultManager.Set(key, value)
+}
+
+func LoadConfigFile(filename string) error {
+	return defaultManager.LoadConfigFile(filename)
+}
+
+func MustLoadConfigFile(filename string) {
+	if err := defaultManager.LoadConfigFile(filename); err != nil {
+		log.Panicf("Cannot load config file %s: %v", filename, err)
+	}
 }
 
 func String(key string, defaultValue string) string {

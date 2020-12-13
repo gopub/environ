@@ -47,3 +47,8 @@ func (m *ViperManager) Get(key string) interface{} {
 func (m *ViperManager) Set(key string, value interface{}) {
 	viper.Set(key, value)
 }
+
+func (m *ViperManager) LoadConfigFile(filename string) error {
+	viper.SetConfigFile(filename)
+	return viper.ReadInConfig()
+}
