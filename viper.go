@@ -21,7 +21,21 @@ func NewViperManager() *ViperManager {
 }
 
 func (m *ViperManager) Has(key string) bool {
-	return viper.IsSet(key)
+	if is := viper.IsSet(key); is {
+		return is
+	}
+
+	if m.dotKeyPattern.MatchString(key) {
+		key = strings.Replace(key, ".", "_", -1)
+		return viper.IsSet(key)
+	}
+
+	if m.underscoreKeyPattern.MatchString(key) {
+		key = strings.Replace(key, "_", ".", -1)
+		return viper.IsSet(key)
+	}
+
+	return false
 }
 
 func (m *ViperManager) Get(key string) interface{} {
