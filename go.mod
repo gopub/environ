@@ -7,7 +7,7 @@ require (
 	github.com/golang/geo v0.0.0-20200730024412-e86565bf3f35 // indirect
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/google/uuid v1.1.2
-	github.com/gopub/conv v0.3.24
+	github.com/gopub/conv v0.3.26
 	github.com/gopub/log v1.2.3 // indirect
 	github.com/gopub/types v0.2.22
 	github.com/magiconair/properties v1.8.4 // indirect
